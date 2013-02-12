@@ -19,7 +19,7 @@
 #ifndef ANNOTATION_MANAGER_PUBLIC_H
 #define ANNOTATION_MANAGER_PUBLIC_H
 
-#define USE_ANNOTATION_BUFFERS
+#define USE_ANNOT_BUFF
 
 typedef struct {
     uint32_t          Type;
@@ -34,6 +34,17 @@ typedef struct {
     uint32_t          thread_context;  // The thread context for which this db was used.
     annotation_db_t  *pdb;
 } annotation_db_ctx_t;
+
+#define ANNOT_BUFF_COUNT 16
+#define ANNOT_BUFF_SIZE  1024+1
+
+typedef struct {
+    uint32_t            BufferID;
+    uint32_t            StartIndex;       // First Valid db entry
+    uint32_t            EndIndex;         // Last Valid db entry
+    uint32_t            Capacity;         // The Size of DB Buffer to For H/W Knowledge
+    annotation_db_ctx_t Buffer[ANNOT_BUFF_SIZE];
+} db_buffer_desc_t;
 
 void mbb_annotation(annotation_db_t *pdb);
 
